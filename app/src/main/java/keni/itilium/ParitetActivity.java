@@ -23,7 +23,9 @@ public class ParitetActivity extends AppCompatActivity
 
     private ListView listView;
 
-    private String JSON_STRING;
+    private String JSON_STRING, object;
+
+    private int obj;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -50,12 +52,18 @@ public class ParitetActivity extends AppCompatActivity
             for (int i = 0; i < result.length(); i++)
             {
                 JSONObject jo = result.getJSONObject(i);
-                String id = jo.getString(Config.TAG_APP_ID);
-                String name = jo.getString(Config.TAG_APP_INITIATOR_NAME);
+                obj = jo.getInt(Config.TAG_APP_OBJ_ID);
+
+                // Вызов метода преобразование id объекта в его название (быдло из за кривизны создания бд :( )
+                intToStr();
+
+                String initiator_name = jo.getString(Config.TAG_APP_INITIATOR_NAME);
+                String reason = jo.getString(Config.TAG_APP_REASON);
 
                 HashMap<String, String> apps = new HashMap<>();
-                apps.put(Config.TAG_APP_ID, id);
-                apps.put(Config.TAG_APP_INITIATOR_NAME, name);
+                apps.put(Config.TAG_APP_OBJ_ID, object);
+                apps.put(Config.TAG_APP_INITIATOR_NAME, initiator_name);
+                apps.put(Config.TAG_APP_REASON, reason);
                 list.add(apps);
             }
         }
@@ -65,8 +73,8 @@ public class ParitetActivity extends AppCompatActivity
         }
 
         ListAdapter adapter = new SimpleAdapter(ParitetActivity.this, list, R.layout.list_apps,
-                new String[]{Config.TAG_APP_ID, Config.TAG_APP_INITIATOR_NAME},
-                new int[]{R.id.id, R.id.name});
+                new String[]{Config.TAG_APP_OBJ_ID, Config.TAG_APP_INITIATOR_NAME, Config.TAG_APP_REASON},
+                new int[]{R.id.obj, R.id.initiator_name, R.id.reason});
 
         listView.setAdapter(adapter);
     }
@@ -102,6 +110,41 @@ public class ParitetActivity extends AppCompatActivity
         }
         GetJSON gj = new GetJSON();
         gj.execute();
+    }
+
+    // Метод по id определяет обьект
+    public void intToStr()
+    {
+        switch (obj)
+        {
+            case 71:
+                object = "Аренда, ООО";
+                break;
+            case 72:
+                object = "Городова Л.П., ИП (Дали Горькова)";
+                break;
+            case 73:
+                object = "Городова Л.П., ИП (Дали Молокова)";
+                break;
+            case 74:
+                object = "Оптима, ООО";
+                break;
+            case 75:
+                object = "Харлей, ООО";
+                break;
+            case 83:
+                object = "DreamLand";
+                break;
+            case 84:
+                object = "Мир сумок";
+                break;
+            case 85:
+                object = "Нью Йорк Оптима";
+                break;
+            case 86:
+                object = "Биг Йоркер";
+                break;
+        }
     }
 
 

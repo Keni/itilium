@@ -10,6 +10,10 @@
 
     <ListView
         android:id="@+id/listparitet"
+        android:background="@android:color/white"
+        android:padding="1dp"
+        android:divider="@color/line"
+        android:dividerHeight="1dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
