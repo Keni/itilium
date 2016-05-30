@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Журнал заявок</string>
+    <string name="sib_paritet">Сибирский Паритет</string>
+    <string name="optima">Оптима</string>
+</resources>
