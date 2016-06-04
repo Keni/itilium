@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import keni.itilium.Optima.OptimaActivity;
+import keni.itilium.Paritet.ParitetActivity;
+
 public class MenuActivity extends AppCompatActivity
 {
     Toolbar toolbar;
@@ -21,6 +24,11 @@ public class MenuActivity extends AppCompatActivity
     public void onClickParitet(View view)
     {
         startActivity(new Intent(this, ParitetActivity.class));
+    }
+
+    public void onClickOptima(View view)
+    {
+        startActivity(new Intent(this, OptimaActivity.class));
     }
 
     public void initToolBar()

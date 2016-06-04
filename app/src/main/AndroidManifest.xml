@@ -19,7 +19,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ParitetActivity"></activity>
+        <activity android:name=".Paritet.ParitetActivity" />
+        <activity android:name=".Optima.OptimaActivity" />
+        <activity android:name=".Optima.AppOptima"></activity>
     </application>
 
 </manifest>

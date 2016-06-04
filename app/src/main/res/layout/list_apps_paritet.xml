@@ -16,7 +16,6 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:text="Тест"
         android:singleLine="false" />
 
     <View
@@ -38,7 +37,6 @@
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/obj"
         android:layout_toEndOf="@+id/obj"
-        android:text="Проверка"
         android:singleLine="false" />
 
     <TextView
@@ -48,7 +46,6 @@
         android:layout_marginStart="15dp"
         android:layout_marginLeft="15dp"
         android:layout_gravity="center_horizontal"
-        android:text="Большая проверка"
         android:layout_below="@+id/initiator_name"
         android:layout_toRightOf="@+id/obj"
         android:layout_toEndOf="@+id/obj" />
