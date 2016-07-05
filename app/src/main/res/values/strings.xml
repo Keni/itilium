@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Itilium</string>
+    <string name="obj">Объект</string>
+    <string name="reason">Описание</string>
+    <string name="engineer">Выполнил</string>
+    <string name="comment">Отчет</string>
+    <string name="done">Сохранить</string>
+    <string name="initiator">Инициатор</string>
+    <string name="add_app">Добавление заявки</string>
+
+</resources>
