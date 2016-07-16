@@ -1,0 +1,48 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="keni.test.MainActivity">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/allObjects"
+            android:orderInCategory="100"
+            android:title="@string/allObjects"
+            android:checked="true"
+            app:showAsAction="never" />
+
+        <item
+            android:id="@+id/arenda"
+            android:orderInCategory="100"
+            android:title="@string/arenda"
+            app:showAsAction="never" />
+
+        <item
+            android:id="@+id/daliGor"
+            android:orderInCategory="100"
+            android:title="@string/daliGor"
+            app:showAsAction="never" />
+
+        <item
+            android:id="@+id/daliMol"
+            android:orderInCategory="100"
+            android:title="@string/daliMol"
+            app:showAsAction="never" />
+
+        <item
+            android:id="@+id/optima"
+            android:orderInCategory="100"
+            android:title="@string/optima"
+            app:showAsAction="never" />
+
+        <item
+            android:id="@+id/harley"
+            android:orderInCategory="100"
+            android:title="@string/harley"
+            app:showAsAction="never" />
+
+    </group>
+
+
+</menu>

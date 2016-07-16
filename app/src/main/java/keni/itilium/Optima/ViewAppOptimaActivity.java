@@ -3,12 +3,14 @@ package keni.itilium.Optima;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -18,9 +20,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import keni.itilium.Config.Config;
+import keni.itilium.Config.ObjectsAndEngineers;
 import keni.itilium.Config.RequestHandler;
 import keni.itilium.R;
 
@@ -31,11 +35,13 @@ public class ViewAppOptimaActivity extends AppCompatActivity
     private EditText editTextReason;
     private EditText editTextComment;
 
-    private Spinner spinnerEngineer;
-
-    private String id;
+    private String id, JSON_STRING, engineer;
 
     private Toolbar toolbar;
+
+    private Spinner spinnerEngineer;
+
+    ArrayList<ObjectsAndEngineers> engineersList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -50,10 +56,95 @@ public class ViewAppOptimaActivity extends AppCompatActivity
         textViewInitiator = (TextView) findViewById(R.id.textViewInitiator);
 
         editTextReason = (EditText) findViewById(R.id.editTextReason);
-        spinnerEngineer = (Spinner) findViewById(R.id.spinnerEngineer);
         editTextComment = (EditText) findViewById(R.id.editTextComment);
 
-        getApp();
+        spinnerEngineer = (Spinner) findViewById(R.id.spinnerEngineer);
+
+        getJSON();
+
+        spinnerEngineer.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+            {
+                ObjectsAndEngineers engineerId = (ObjectsAndEngineers) parent.getSelectedItem();
+                engineer = engineerId.getId();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+    }
+
+    private void getJSON()
+    {
+        class GetJSON extends AsyncTask<Void, Void, String>
+        {
+            ProgressDialog loading;
+
+            @Override
+            protected void onPreExecute()
+            {
+                super.onPreExecute();
+                loading = ProgressDialog.show(ViewAppOptimaActivity.this, "Загрузка", "Подождите...", false, false);
+            }
+
+            @Override
+            protected void onPostExecute(String s)
+            {
+                super.onPostExecute(s);
+                loading.dismiss();
+                JSON_STRING = s;
+                loadEngineers();
+                getApp();
+            }
+
+            @Override
+            protected String doInBackground(Void... params)
+            {
+                RequestHandler rh = new RequestHandler();
+                String s = rh.sendGetRequest(Config.URL_GET_ENGINNERS_OPTIMA);
+                return s;
+            }
+        }
+        GetJSON gj = new GetJSON();
+        gj.execute();
+    }
+
+    private void loadEngineers()
+    {
+        JSONObject jsonObject;
+
+        try
+        {
+            jsonObject = new JSONObject(JSON_STRING);
+            JSONArray result = jsonObject.getJSONArray(Config.TAG_JSON_ARRAY);
+
+            engineersList.add(0, new ObjectsAndEngineers("0", "Не назначен"));
+
+            for (int i = 0; i < result.length(); i++)
+            {
+                JSONObject jo = result.getJSONObject(i);
+
+                String engineer_id = jo.getString(Config.TAG_ENGINEER_ID);
+                String engineer_name = jo.getString(Config.TAG_ENGINEER_NAME);
+
+                engineersList.add(new ObjectsAndEngineers(engineer_id, engineer_name));
+            }
+
+            ArrayAdapter<ObjectsAndEngineers> adapter = new ArrayAdapter<ObjectsAndEngineers>(this, R.layout.spinner_objects_item, engineersList);
+            adapter.setDropDownViewResource(R.layout.spinner_objects_dropdown_item);
+
+            spinnerEngineer.setAdapter(adapter);
+        }
+        catch (JSONException e)
+        {
+            e.printStackTrace();
+        }
+
+
     }
 
     private void getApp()
@@ -103,10 +194,17 @@ public class ViewAppOptimaActivity extends AppCompatActivity
             String engineer = c.getString(Config.TAG_APP_ENGINEER);
             String comment = c.getString(Config.TAG_APP_COMMENT);
 
+            for (int i = 0; i < engineersList.size(); i++)
+            {
+                if (spinnerEngineer.getItemAtPosition(i).toString().equals(engineer))
+                {
+                    spinnerEngineer.setSelection(i);
+                }
+            }
+
             toolbar.setTitle(obj);
             textViewInitiator.setText(initiator);
             editTextReason.setText(reason);
-            //editTextEngineer.setText(engineer);
             editTextComment.setText(comment);
         }
         catch (JSONException e)
@@ -145,6 +243,7 @@ public class ViewAppOptimaActivity extends AppCompatActivity
                 HashMap<String, String> hashMap = new HashMap<>();
                 hashMap.put(Config.KEY_APP_ID, id);
                 hashMap.put(Config.KEY_APP_REASON, reason);
+                hashMap.put(Config.KEY_APP_ENGINEER, engineer);
                 hashMap.put(Config.KEY_APP_COMMENT, comment);
 
                 RequestHandler rh = new RequestHandler();

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Itilium</string>
+    <string name="app_name">Журнал заявок</string>
     <string name="obj">Объект</string>
     <string name="reason">Описание</string>
     <string name="engineer">Выполнил</string>
@@ -7,5 +7,18 @@
     <string name="done">Сохранить</string>
     <string name="initiator">Инициатор</string>
     <string name="add_app">Добавление заявки</string>
-
+    <string name="filter">Фильтр</string>
+    <string name="accept">Применить</string>
+    <string name="cancel">Отмена</string>
+    <string name="arenda">Аренда, ООО</string>
+    <string name="daliGor">Городова Л.П., ИП (Дали Горькова)</string>
+    <string name="daliMol">Городова Л.П., ИП (Дали Молокова)</string>
+    <string name="optima">Оптима, ООО</string>
+    <string name="harley">Харлей, ООО</string>
+    <string name="dreamLand">DreamLand</string>
+    <string name="mir">Мир сумок</string>
+    <string name="newYork">Нью Йорк Оптима</string>
+    <string name="bigYorker">Биг Йоркер</string>
+    <string name="allObjects">Все объекты</string>
+    <string name="gcm_defaultSenderId">yo</string>
 </resources>

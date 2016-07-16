@@ -116,6 +116,7 @@ public class ViewAppParitetActivity extends AppCompatActivity
     private void updateApp()
     {
         final String reason = editTextReason.getText().toString().trim();
+        final String enginner = editTextEngineer.getText().toString().trim();
         final String comment = editTextComment.getText().toString().trim();
 
         class UpdateApp extends AsyncTask<Void, Void, String>
@@ -143,6 +144,7 @@ public class ViewAppParitetActivity extends AppCompatActivity
                 HashMap<String, String> hashMap = new HashMap<>();
                 hashMap.put(Config.KEY_APP_ID, id);
                 hashMap.put(Config.KEY_APP_REASON, reason);
+                hashMap.put(Config.KEY_APP_ENGINEER, enginner);
                 hashMap.put(Config.KEY_APP_COMMENT, comment);
 
                 RequestHandler rh = new RequestHandler();

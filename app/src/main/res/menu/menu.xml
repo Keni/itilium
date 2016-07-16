@@ -1,0 +1,17 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="all">
+        <item
+            android:id="@+id/item1"
+            android:titleCondensed="Options"
+            android:title="Highlight Options"
+            android:icon="@android:drawable/ic_menu_preferences">
+        </item>
+        <item
+            android:id="@+id/item2"
+            android:titleCondensed="Persist"
+            android:title="Persist"
+            android:icon="@android:drawable/ic_menu_preferences"
+            android:checkable="true">
+        </item>
+    </group>
+</menu>

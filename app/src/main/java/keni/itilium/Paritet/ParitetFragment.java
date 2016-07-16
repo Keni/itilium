@@ -6,7 +6,11 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -36,9 +40,13 @@ public class ParitetFragment extends android.support.v4.app.Fragment implements 
 
     private SwipeRefreshLayout swipeRefreshLayout;
 
+    private String obj_filter = "71,72,73,74,75";
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup containter, Bundle savedInstanceState)
     {
+        setHasOptionsMenu(true);
+
         return inflater.inflate(R.layout.activity_listview, containter, false);
     }
 
@@ -46,6 +54,8 @@ public class ParitetFragment extends android.support.v4.app.Fragment implements 
     public void onActivityCreated(Bundle savedInstanceState)
     {
         super.onActivityCreated(savedInstanceState);
+
+        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
 
         list_paritet_apps = (ListView) getActivity().findViewById(R.id.list_apps);
         list_paritet_apps.setOnItemClickListener(this);
@@ -83,6 +93,13 @@ public class ParitetFragment extends android.support.v4.app.Fragment implements 
         getJSON();
     }
 
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        getJSON();
+    }
+
     private void getJSON()
     {
         swipeRefreshLayout.setRefreshing(true);
@@ -111,7 +128,7 @@ public class ParitetFragment extends android.support.v4.app.Fragment implements 
             protected String doInBackground(Void... params)
             {
                 RequestHandler rh = new RequestHandler();
-                String s = rh.sendGetRequest(Config.URL_GET_ALL_APPS_PARITET);
+                String s = rh.sendGetRequestParam(Config.URL_GET_ALL_APPS_PARITET, obj_filter);
                 return s;
             }
         }
@@ -170,5 +187,51 @@ public class ParitetFragment extends android.support.v4.app.Fragment implements 
 
         app.putExtra(Config.APP_ID, appId);
         startActivity(app);
+    }
+
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflate)
+    {
+        inflate.inflate(R.menu.filterparitet, menu);
+        super.onCreateOptionsMenu(menu, inflate);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
+            case (R.id.allObjects):
+                obj_filter = "71,72,73,74,75";
+                item.setChecked(true);
+                break;
+
+            case (R.id.arenda):
+                obj_filter = "71";
+                item.setChecked(true);
+                break;
+
+            case (R.id.daliGor):
+                obj_filter = "72";
+                item.setChecked(true);
+                break;
+
+            case (R.id.daliMol):
+                obj_filter = "73";
+                item.setChecked(true);
+                break;
+
+            case (R.id.optima):
+                obj_filter = "74";
+                item.setChecked(true);
+                break;
+
+            case (R.id.harley):
+                obj_filter = "75";
+                item.setChecked(true);
+                break;
+        }
+
+        getJSON();
+        return true;
     }
 }

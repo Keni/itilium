@@ -19,24 +19,25 @@ import keni.itilium.Paritet.ParitetFragment;
  */
 public class MainActivity extends AppCompatActivity implements OnItemSelectedListener
 {
-    String[] data = {"Оптима", "Сибирский Паритет"};
+    private String[] data = {"Оптима", "Сибирский Паритет"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        /**
         if (savedInstanceState == null)
         {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContent, new OptimaFragment()).commit();
         }
+         */
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, data);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_toolbar_item, data);
+        adapter.setDropDownViewResource(R.layout.spinner_toolbar_dropdown_item);
 
         Spinner spinner = (Spinner) findViewById(R.id.spinner_nav);
         spinner.setAdapter(adapter);
@@ -44,6 +45,8 @@ public class MainActivity extends AppCompatActivity implements OnItemSelectedLis
         spinner.setOnItemSelectedListener(this);
 
     }
+
+
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id)

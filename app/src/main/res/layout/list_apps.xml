@@ -24,7 +24,8 @@
         android:background="@color/line"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/obj"
-        android:layout_toEndOf="@+id/obj" />
+        android:layout_toEndOf="@+id/obj"
+        android:id="@+id/view" />
 
 
     <TextView
@@ -37,18 +38,18 @@
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/obj"
         android:layout_toEndOf="@+id/obj"
-        android:singleLine="false" />
+        android:singleLine="false"
+        android:layout_marginTop="10dp" />
 
     <TextView
         android:id="@+id/reason"
         android:layout_width="wrap_content"
         android:layout_height="70dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginLeft="15dp"
         android:layout_gravity="center_horizontal"
-        android:layout_below="@+id/initiator_name"
-        android:layout_toRightOf="@+id/obj"
-        android:layout_toEndOf="@+id/obj" />
+        android:layout_alignBottom="@+id/view"
+        android:layout_alignLeft="@+id/initiator_name"
+        android:layout_alignStart="@+id/initiator_name"
+        android:layout_marginTop="5dp" />
 
 
 </RelativeLayout>
